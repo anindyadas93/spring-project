@@ -41,6 +41,22 @@ public class EmployeeController {
         return new ResponseEntity<Object>("New employee created with id: " + employee.getId(), HttpStatus.CREATED);
     }
     
+    @PostMapping("/login-employee")
+    private String loginEmployee(@RequestBody Employee employee) {
+    	return employeeService.loginEmployee(employee);
+    }
+    
+    // Add employees bulk create
+//    @PostMapping("/create-employees")
+//    private ResponseEntity<?> createEmployees(@RequestBody Employee employee) {
+//        try {
+//            employeeService.saveOrUpdate(employee);
+//        } catch (Exception exception) {
+//            return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//        return new ResponseEntity<Object>("New employee created with id: " + employee.getId(), HttpStatus.CREATED);
+//    }
+    
     @PutMapping("/update-employee")
     private ResponseEntity<?> updateEmployee(@RequestBody Employee employee) {
     	try {

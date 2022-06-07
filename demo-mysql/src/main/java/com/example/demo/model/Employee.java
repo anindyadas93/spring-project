@@ -1,19 +1,31 @@
 package com.example.demo.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="Employee")
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonIgnore
 	Integer id;
 	String name;
 	Double salary;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="address_id", referencedColumnName = "id")
+	Address address;
+	@ManyToMany
+//	List<Book> books;
 	
 	public Integer getId() {
 		return id;
@@ -33,10 +45,17 @@ public class Employee {
 	public void setSalary(Double salary) {
 		this.salary = salary;
 	}
-	@Override
-	public String toString() {
-		return "Employee [id=" + id + ", name=" + name + ", salary=" + salary + "]";
+	
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 	
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", salary=" + salary + ", address=" + address + "]";
+	}	
 	
 }
